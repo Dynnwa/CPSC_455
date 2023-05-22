@@ -1,7 +1,7 @@
   document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("item-form");
-  
-    const itemList = document.getElementById("item-list");
+    const deleteButton = document.getElementById("delete-button");
+    const itemList = document.getElementById("dynamic-list");
   
     let jsonData = [{
         name: "fork",
@@ -17,6 +17,12 @@
       }];
 
     displayItems();
+
+    deleteButton.addEventListener("click", function(event) {
+      event.preventDefault();
+      jsonData = [];
+      displayItems();
+    });
   
     form.addEventListener("submit", function(event) {
       event.preventDefault();
@@ -59,14 +65,19 @@
     });
   
     function displayItems() {
-      console.log(jsonData);
       itemList.innerHTML = "";
+      let total = 0;
   
       jsonData.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `Name: ${item.name}, Description: ${item.description}, Price: ${item.price}, Image: ${item.image}`;
-        itemList.appendChild(li);
+        total += parseInt(item.price);
+        const p = document.createElement("p");
+        p.textContent = `Name: ${item.name}, Description: ${item.description}, Price: ${item.price}, Image: ${item.image}`;
+        itemList.appendChild(p);
       });
+
+      const p = document.createElement("p");
+        p.textContent = `Total Price: ${total}`;
+        itemList.appendChild(p);
     }
   });
   

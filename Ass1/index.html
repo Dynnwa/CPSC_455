@@ -2,14 +2,14 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Add Items to JSON</title>
+  <title>Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Add Items to JSON</h1>
+    <h1>Inventory Managament</h1>
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="about.html">About</a></li>
         </ul>
     </nav>
   <h1>Add Items to JSON</h1>
@@ -25,12 +25,12 @@
     <input type="text" id="image" required>
     <button type="submit">Add Item</button>
     <button type="reset">Clear</button>
-    <button type="button">Delete</button>
   </form>
+  <button id="delete-button">Delete</button>
 
-  <ul id="item-list">
-    <!-- The JSON items will be dynamically added here -->
-  </ul>
+
+  <div class="list-box" id="dynamic-list">
+  </div>
 
   <script src="script.js"></script>
 </body>
