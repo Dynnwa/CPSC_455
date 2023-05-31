@@ -22,10 +22,14 @@ const InputForm = ({ addFunction }) => {
     setImage(e.target.value);
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // add stuff to list
+    addFunction({
+        "name": name,
+        "description": description,
+        "price": price,
+        "image": image
+    });
     setName('');
     setDescription('');
     setPrice('');
