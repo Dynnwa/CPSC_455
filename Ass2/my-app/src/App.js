@@ -4,7 +4,6 @@ import InputForm from './InputForm';
 import Card from './Card';
 import Popover from './Popover';
 
-
 function App() {
   const [data, setData] = useState([{
   "name": "fork",
@@ -31,14 +30,15 @@ const addItem = (item) => {
       {data.map((item, index) => (
         <>
         <Card name={item.name} description={item.description} price={item.price} image={item.image}></Card>
+        {isPopoverVisible && (
+          <Popover name={item.name} description={item.description} price={item.price} className="popover-content"></Popover>
+        )}
         <button className="button" onClick={() => 
         {const updatedList = [...data];
         updatedList.splice(index, 1);
         setData(updatedList);}}>Delete {item.name}</button>
-        <button className="button" onClick={setIsPopoverVisible(true)}>More info about {item.name}</button>
-        {isPopoverVisible && (
-          <Popover name={item.name} description={item.description} price={item.price}></Popover>
-        )}
+        <button className="button" onClick={() => 
+        {setIsPopoverVisible(!isPopoverVisible);}}>More info about {item.name}</button>
         </>
       ))}
     </div>
