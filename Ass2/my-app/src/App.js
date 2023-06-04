@@ -3,40 +3,33 @@ import React, { useState } from 'react';
 import InputForm from './InputForm';
 import Card from './Card';
 import Popover from './Popover';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const [data, setData] = useState([{
-  "name": "fork",
-  "price": "3",
-  "description": "its a fork",
-  "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTDTu-8YF1QJpG5YPfLPGtc7xWuw3AeJWHdckuEEGmnA&s"
-  },
-  {
-  "name": "spoon",
-  "price": "4",
-  "description": "its a spoon",
-  "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTDTu-8YF1QJpG5YPfLPGtc7xWuw3AeJWHdckuEEGmnA&s"
-}]);
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.data);
 
+  const addItem = (item) => {
+    dispatch({ type: 'add',
+    payload: item});
+  };
 
-const addItem = (item) => {
-  setData([...data, item]);
-}
+  // const delItem = (index) => {
+  //   dispatch({ type: 'del',
+  //   payload: index});
+  // };
 
   return (
     <div className="App">
       <InputForm addFunction={addItem} />
-      {data.map((item, index) => (
+      {items?.map((item, index) => (
         <>
         <Card name={item.name} description={item.description} price={item.price} image={item.image}></Card>
         {isPopoverVisible && (
           <Popover name={item.name} description={item.description} price={item.price} className="popover-content"></Popover>
         )}
-        <button className="button" onClick={() => 
-        {const updatedList = [...data];
-        updatedList.splice(index, 1);
-        setData(updatedList);}}>Delete {item.name}</button>
+        <button className="button" onClick={(index) => {dispatch({ type: 'del', payload: index})}}>Delete {item.name}</button>
         <button className="button" onClick={() => 
         {setIsPopoverVisible(!isPopoverVisible);}}>More info about {item.name}</button>
         </>
