@@ -1,44 +1,50 @@
-const express = require('express');
-const cors = require('cors');
+import Connection from './db.js';
+import express from 'express';
+import cors from 'cors';
+import route from './routes.js';
+import item from './model.js';
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/', route);
 
-// Define a route handler for the /api endpoint
-app.get('/default', (req, res) => {
-  res.json([{
-    "name": "fork",
-    "price": "3",
-    "description": "its a fork",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTDTu-8YF1QJpG5YPfLPGtc7xWuw3AeJWHdckuEEGmnA&s"
-    },
-    {
-    "name": "spoon",
-    "price": "4",
-    "description": "its a spoon",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTDTu-8YF1QJpG5YPfLPGtc7xWuw3AeJWHdckuEEGmnA&s"
-  }]);
+app.delete('/del/:id', (req, res) => {
+  const itemId = req.params.id;
+  
+  item.findByIdAndDelete(itemId)
+      .then(deletedItem => {
+        if (deletedItem) {
+          console.log('Item deleted:', deletedItem);
+        } else {
+          console.log('Item not found');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting item:', error);
+      })
+  return response.status(200);
+  });
+
+app.put('/item/:id', (req, res) => {
+  const filter = { _id: req.params.id };
+  const update = { $set: { price: req.body.price + '0' } };
+  const options = { returnOriginal: false };
+
+  item.findOneAndUpdate(filter, update, options)
+    .then(result => {
+      console.log('Document updated:', result.value);
+    })
+    .catch(error => {
+      console.error('Error updating document:', error);
+    })
 });
 
-app.delete('/delete/:name', (req, res) => {
-    const name = req.params.name;
-
-    // TODO
-  
-    res.sendStatus(200);
-  });
-
-app.post('/save', (req, res) => {
-    const { itemId, price } = req.body;
-    
-    // TODO
-    
-    res.sendStatus(200);
-  });
-
-// Start the server
 const port = 3006;
+
+Connection();
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
