@@ -1,4 +1,8 @@
 {
+  "scripts": {
+      "server": "cd server && npm install && node index.js",
+      "clinet": "cd my-app && npm install && "
+  },
   "dependencies": {
     "mongodb": "^5.7.0",
     "npx": "^10.2.2"
