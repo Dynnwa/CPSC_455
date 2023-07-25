@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: CD
-      run: cd Ass5/my-app
+      run: cd CPSC_455/Ass5/my-app
 
     - name: Install dependencies
       run: npm install
