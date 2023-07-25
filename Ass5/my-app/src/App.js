@@ -12,14 +12,14 @@ function App() {
   const items = useSelector((state) => state.data);
 
   const addItem = async (item) => {
-    const res = await axios.post(`http://localhost:3006/save`, { name: item.name, price: item.price, description: item.description, image: item.image});
+    const res = await axios.post(`https://dback455.onrender.com/save`, { name: item.name, price: item.price, description: item.description, image: item.image});
     dispatch({ type: 'add', payload: res.data });
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3006/default');
+        const response = await fetch('https://dback455.onrender.com/default');
         const data = await response.json();
         dispatch({ type: 'load', payload: data });
       } catch (error) {
@@ -32,14 +32,14 @@ function App() {
 
   const handleDelete = async (item) => {
     const id = item._id;
-    const res = await axios.delete(`http://localhost:3006/del/` + id).catch((err)=> {});
+    const res = await axios.delete(`https://dback455.onrender.com/del/` + id).catch((err)=> {});
     dispatch({ type: 'del', payload: item });
   };
 
   const update = async (item) => {
     const id = item._id;
     console.log(id);
-    await axios.put(`http://localhost:3006/item/${id}`, item);
+    await axios.put(`https://dback455.onrender.com/item/${id}`, item);
   };
 
   return (
