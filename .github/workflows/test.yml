@@ -16,6 +16,9 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+    
+    - name: CD
+      run: cd Ass5/my-app
 
     - name: Run tests
       run: npm test
