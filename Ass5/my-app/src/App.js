@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
+      try {   
         const response = await fetch('https://dback455.onrender.com/default');
         const data = await response.json();
         dispatch({ type: 'load', payload: data });
